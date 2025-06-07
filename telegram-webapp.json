@@ -1,0 +1,28 @@
+{
+  "name": "Cal AI",
+  "short_name": "CalAI",
+  "description": "Умный помощник для подсчета калорий и анализа питания с ИИ",
+  "version": "1.0.0",
+  "icon": "https://your-domain.com/icon-192.png",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#007AFF",
+  "background_color": "#F5F5F7",
+  "scope": "/",
+  "lang": "ru",
+  "categories": ["health", "food", "lifestyle"],
+  "screenshots": [
+    {
+      "src": "https://your-domain.com/screenshot1.png",
+      "sizes": "390x844",
+      "type": "image/png"
+    }
+  ],
+  "telegram": {
+    "webapp": {
+      "url": "https://your-domain.com/",
+      "button_text": "Открыть Cal AI"
+    }
+  }
+}

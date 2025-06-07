@@ -1,0 +1,147 @@
+.navigation {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--tg-theme-bg-color, #ffffff);
+  border-top: 1px solid var(--tg-theme-section-separator-color, #e5e5e7);
+  padding: 8px 0 env(safe-area-inset-bottom, 8px);
+  z-index: 1000;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  animation: slideUp 0.3s ease-out;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 8px;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 12px;
+  min-width: 48px;
+  flex: 1;
+  max-width: 80px;
+}
+
+.nav-item:hover {
+  background: var(--tg-theme-button-color, #007aff);
+  opacity: 0.1;
+}
+
+.nav-item--active {
+  background: var(--tg-theme-button-color, #007aff);
+  color: var(--tg-theme-button-text-color, #ffffff);
+}
+
+.nav-item--active .nav-icon {
+  transform: scale(1.1);
+}
+
+.nav-icon {
+  position: relative;
+  font-size: 20px;
+  margin-bottom: 2px;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--tg-theme-destructive-text-color, #ff3b30);
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 5px;
+  border-radius: 10px;
+  min-width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.nav-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--tg-theme-text-color, #000000);
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.nav-item--active .nav-label {
+  color: var(--tg-theme-button-text-color, #ffffff);
+  font-weight: 600;
+}
+
+.nav-item:not(.nav-item--active) .nav-label {
+  color: var(--tg-theme-hint-color, #999999);
+}
+
+/* Адаптация для малых экранов */
+@media (max-width: 360px) {
+  .nav-container {
+    padding: 0 4px;
+  }
+
+  .nav-item {
+    padding: 4px 8px;
+    min-width: 40px;
+  }
+
+  .nav-icon {
+    font-size: 18px;
+  }
+
+  .nav-label {
+    font-size: 9px;
+  }
+}
+
+/* Анимация появления */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Темная тема */
+@media (prefers-color-scheme: dark) {
+  .navigation {
+    background: var(--tg-theme-bg-color, #1c1c1e);
+    border-top-color: var(--tg-theme-section-separator-color, #38383a);
+  }
+
+  .nav-label {
+    color: var(--tg-theme-text-color, #ffffff);
+  }
+
+  .nav-item:not(.nav-item--active) .nav-label {
+    color: var(--tg-theme-hint-color, #8e8e93);
+  }
+}
