@@ -7,6 +7,8 @@ import Assistant from "./components/Assistant";
 import History from "./components/History";
 import Settings from "./components/Settings";
 import Navigation from "./components/Navigation";
+import AnimatedScreen from "./components/AnimatedScreen";
+import ParticleBackground from "./components/ParticleBackground";
 import { calculateCalories } from "./utils/calorieCalculator";
 
 function App() {
@@ -263,7 +265,16 @@ function App() {
 
   return (
     <div className="container">
-      {renderScreen()}
+      <ParticleBackground
+        particleCount={30}
+        opacity={0.4}
+        size={{ min: 1, max: 4 }}
+        speed={{ min: 15, max: 30 }}
+      />
+
+      <AnimatedScreen screenKey={currentScreen}>
+        {renderScreen()}
+      </AnimatedScreen>
 
       {shouldShowNavigation && (
         <Navigation

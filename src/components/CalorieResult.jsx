@@ -1,5 +1,9 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { calculateMacros } from "../utils/calorieCalculator";
+import AnimatedCounter from "./AnimatedCounter";
+import AnimatedButton from "./AnimatedButton";
+import AnimatedProgressBar from "./AnimatedProgressBar";
 
 function CalorieResult({ calorieData, userProfile, onReset, onStartTracking }) {
   const macros = calculateMacros(calorieData.targetCalories);
@@ -22,26 +26,55 @@ function CalorieResult({ calorieData, userProfile, onReset, onStartTracking }) {
       </div>
 
       {/* Основной результат */}
-      <div className="result-card">
-        <div className="result-calories">{calorieData.targetCalories}</div>
-        <div className="result-label">калорий в день</div>
-        <div className="result-goal">{calorieData.goal.label}</div>
-      </div>
-
-      {/* Кнопка начать трекинг */}
-      <button
-        className="btn btn-primary"
-        onClick={onStartTracking}
-        style={{
-          marginBottom: "20px",
-          background:
-            "linear-gradient(135deg, var(--primary-color), var(--secondary-color))",
-          fontSize: "18px",
-          padding: "16px 24px",
+      <motion.div
+        className="result-card"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+          delay: 0.3,
         }}
       >
-        📷 Начать добавлять еду
-      </button>
+        <div className="result-calories">
+          <AnimatedCounter
+            value={calorieData.targetCalories}
+            duration={2500}
+            colorThresholds={{
+              low: 30,
+              medium: 70,
+              colors: ["#34c759", "#ff9500", "#ff3b30"],
+            }}
+          />
+        </div>
+        <div className="result-label">калорий в день</div>
+        <motion.div
+          className="result-goal"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 1.5 }}
+        >
+          {calorieData.goal.label}
+        </motion.div>
+      </motion.div>
+
+      {/* Кнопка начать трекинг */}
+      <motion.div
+        initial={{ y: 50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 1.8 }}
+        style={{ marginBottom: "20px" }}
+      >
+        <AnimatedButton
+          onClick={onStartTracking}
+          variant="primary"
+          size="large"
+          pulse={true}
+        >
+          📷 Начать добавлять еду
+        </AnimatedButton>
+      </motion.div>
 
       {/* Детальная информация */}
       <div className="card">
@@ -102,98 +135,59 @@ function CalorieResult({ calorieData, userProfile, onReset, onStartTracking }) {
         </h3>
 
         <div style={{ display: "grid", gap: "16px" }}>
-          <div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: "8px",
-              }}
-            >
-              <span>🥩 Белки (30%)</span>
-              <span style={{ fontWeight: "600" }}>{macros.protein.grams}г</span>
-            </div>
-            <div
-              style={{
-                width: "100%",
-                height: "6px",
-                background: "#FFE5E5",
-                borderRadius: "3px",
-              }}
-            >
-              <div
-                style={{
-                  width: "30%",
-                  height: "100%",
-                  background: "#FF6B6B",
-                  borderRadius: "3px",
-                }}
-              ></div>
-            </div>
-          </div>
+          <motion.div
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 2.0 }}
+          >
+            <AnimatedProgressBar
+              value={30}
+              max={100}
+              height={8}
+              color="#FF6B6B"
+              backgroundColor="#FFE5E5"
+              showPercentage={false}
+              showValue={false}
+              label={`🥩 Белки (30%) • ${macros.protein.grams}г`}
+              glow={true}
+            />
+          </motion.div>
 
-          <div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: "8px",
-              }}
-            >
-              <span>🍞 Углеводы (40%)</span>
-              <span style={{ fontWeight: "600" }}>{macros.carbs.grams}г</span>
-            </div>
-            <div
-              style={{
-                width: "100%",
-                height: "6px",
-                background: "#E5F7FF",
-                borderRadius: "3px",
-              }}
-            >
-              <div
-                style={{
-                  width: "40%",
-                  height: "100%",
-                  background: "#4ECDC4",
-                  borderRadius: "3px",
-                }}
-              ></div>
-            </div>
-          </div>
+          <motion.div
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 2.2 }}
+          >
+            <AnimatedProgressBar
+              value={40}
+              max={100}
+              height={8}
+              color="#4ECDC4"
+              backgroundColor="#E5F7FF"
+              showPercentage={false}
+              showValue={false}
+              label={`🍞 Углеводы (40%) • ${macros.carbs.grams}г`}
+              glow={true}
+            />
+          </motion.div>
 
-          <div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: "8px",
-              }}
-            >
-              <span>🥑 Жиры (30%)</span>
-              <span style={{ fontWeight: "600" }}>{macros.fat.grams}г</span>
-            </div>
-            <div
-              style={{
-                width: "100%",
-                height: "6px",
-                background: "#FFF5E5",
-                borderRadius: "3px",
-              }}
-            >
-              <div
-                style={{
-                  width: "30%",
-                  height: "100%",
-                  background: "#FFB84D",
-                  borderRadius: "3px",
-                }}
-              ></div>
-            </div>
-          </div>
+          <motion.div
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 2.4 }}
+          >
+            <AnimatedProgressBar
+              value={30}
+              max={100}
+              height={8}
+              color="#FFB84D"
+              backgroundColor="#FFF5E5"
+              showPercentage={false}
+              showValue={false}
+              label={`🥑 Жиры (30%) • ${macros.fat.grams}г`}
+              glow={true}
+            />
+          </motion.div>
         </div>
       </div>
 
